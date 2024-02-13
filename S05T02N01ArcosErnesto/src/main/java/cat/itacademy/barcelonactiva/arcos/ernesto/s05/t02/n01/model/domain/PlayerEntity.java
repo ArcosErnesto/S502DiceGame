@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Data
@@ -27,9 +28,14 @@ public class PlayerEntity implements Serializable {
 
     private Double successRate;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "creationDate", nullable = false, updatable = false)
+    private Date creationDate;
+
     public PlayerEntity(String playerName, Double successRate) {
         this.playerName = playerName;
         this.successRate = successRate;
+        this.creationDate = new Date();
     }
 
 }

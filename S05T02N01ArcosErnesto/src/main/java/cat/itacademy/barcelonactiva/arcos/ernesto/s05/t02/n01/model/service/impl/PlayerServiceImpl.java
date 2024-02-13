@@ -122,7 +122,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     public PlayerDTO playerToDTO(PlayerEntity player) {
-        return new PlayerDTO(player.getPlayerId(), player.getPlayerName(), player.getSuccessRate());
+        return new PlayerDTO(player.getPlayerId(), player.getPlayerName(), player.getCreationDate(), player.getSuccessRate());
     }
 
 }

@@ -40,17 +40,4 @@ public class Controller {
         return new ResponseEntity<>(newGame, HttpStatus.OK);
     }
 
-/*
-    @DeleteMapping("/deletePlayer/{id}")
-    public ResponseEntity<String>deletePlayer(@PathVariable long id){
-        String msg = playerService.delete(id);
-        return ResponseEntity.ok(msg);
-    }
-
-    @GetMapping("/getPlayer/{id}")
-    public ResponseEntity<PlayerDTO> getPlayerById(@PathVariable long id) {
-        Optional<PlayerDTO> player = playerService.getOne(id);
-        return player.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-*/
 }
