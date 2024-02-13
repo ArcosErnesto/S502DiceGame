@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,11 +14,18 @@ import java.io.Serializable;
 public class PlayerDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-
+    private long playerId;
     private String playerName;
+    private Double successRate;
 
-    public PlayerDTO(String playerName) {
+    public PlayerDTO(String playerName, Double successRate) {
         this.playerName = (playerName != null && !playerName.isEmpty()) ? playerName : "ANONYMOUS";
+        this.successRate = successRate;
+    }
 
+    public PlayerDTO(long playerId, String playerName, Double successRate) {
+        this.playerId = playerId;
+        this.playerName = (playerName != null && !playerName.isEmpty()) ? playerName : "ANONYMOUS";
+        this.successRate = successRate;
     }
 }

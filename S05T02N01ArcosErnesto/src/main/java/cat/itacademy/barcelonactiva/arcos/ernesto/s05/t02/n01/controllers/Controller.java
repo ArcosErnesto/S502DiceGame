@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.controllers;
 
+import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,27 +9,38 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@RequestMapping("/diceGame/v1")
+@RequestMapping("/diceGame/v1/players")
 public class Controller {
     @Autowired
     PlayerService playerService;
 
-    @PostMapping("/addPlayer")
+    @PostMapping("")
     public ResponseEntity<PlayerDTO>addPlayer(@RequestBody PlayerDTO playerDTO){
-        PlayerDTO newPlayer = playerService.add(playerDTO);
+        PlayerDTO newPlayer = playerService.addPlayer(playerDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(newPlayer);
     }
 
-    @PutMapping("/updatePlayer/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<PlayerDTO> updatePlayer(@PathVariable long id, @RequestBody PlayerDTO playerDTO) {
-        PlayerDTO updatedPlayer = playerService.update(id, playerDTO);
+        PlayerDTO updatedPlayer = playerService.updatePlayer(id, playerDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(updatedPlayer);
     }
 
+    @GetMapping("")
+    public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
+        List<PlayerDTO> list = playerService.findAll();
+        return ResponseEntity.ok(list);
+    }
 
+    @PostMapping("/{id}/games")
+    public ResponseEntity<GameDTO> play(@PathVariable("id") Integer id){
+        GameDTO newGame = playerService.playGame(id);
+        return new ResponseEntity<>(newGame, HttpStatus.OK);
+    }
+
+/*
     @DeleteMapping("/deletePlayer/{id}")
     public ResponseEntity<String>deletePlayer(@PathVariable long id){
         String msg = playerService.delete(id);
@@ -40,11 +52,5 @@ public class Controller {
         Optional<PlayerDTO> player = playerService.getOne(id);
         return player.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-    @GetMapping("/getAllPlayers")
-    public ResponseEntity<List<PlayerDTO>> getAllPlayers() {
-        List<PlayerDTO> list = playerService.findAll();
-        return ResponseEntity.ok(list);
-    }
-
+*/
 }

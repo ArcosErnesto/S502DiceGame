@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "player")
+@Table(name = "players", uniqueConstraints = @UniqueConstraint(columnNames = "playerName"))
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +25,11 @@ public class PlayerEntity implements Serializable {
 
     private String playerName;
 
-    public PlayerEntity(String playerName) {
+    private Double successRate;
+
+    public PlayerEntity(String playerName, Double successRate) {
         this.playerName = playerName;
+        this.successRate = successRate;
     }
+
 }
