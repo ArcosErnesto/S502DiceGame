@@ -3,7 +3,7 @@ package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.imp
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.GameEntity;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.PlayerEntity;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.GameDTO;
-import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.GameNotFoundException;
+import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.GameService;
@@ -45,14 +45,13 @@ public class GameServiceImpl implements GameService {
     public void deleteAllGames(PlayerEntity playerEntity) {
     }
 
-    @Override
 
-    //TODO cambiar excepcion a Player
+    @Override
     public GameEntity gameDTOToEntity(Optional<PlayerEntity> playerDTO, GameDTO gameDTO) {
         PlayerEntity player = playerDTO
                 .map(dto -> playerRepository.findById(dto.getPlayerId()))
-                .orElseThrow(() -> new GameNotFoundException("No se proporcionó un jugador válido para crear el juego."))
-                .orElseThrow(() -> new GameNotFoundException("El jugador con el ID proporcionado no existe."));
+                .orElseThrow(() -> new PlayerNotFoundException("No se proporcionó un jugador válido para crear el juego."))
+                .orElseThrow(() -> new PlayerNotFoundException("El jugador con el ID proporcionado no existe."));
 
         return new GameEntity(player, gameDTO.getDice1(), gameDTO.getDice2(), gameDTO.isWin());
     }

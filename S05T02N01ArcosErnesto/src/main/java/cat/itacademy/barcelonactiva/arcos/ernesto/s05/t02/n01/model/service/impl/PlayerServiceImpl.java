@@ -4,6 +4,7 @@ import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.GameE
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.PlayerEntity;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.PlayerDTO;
+import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerAlreadyExistsException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerUpdateException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.repository.PlayerRepository;
@@ -25,6 +26,9 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO addPlayer(PlayerDTO playerDTO) {
+        if (playerDTO.getPlayerName() != null && playerRepository.existsByPlayerName(playerDTO.getPlayerName())) {
+            throw new PlayerAlreadyExistsException("Ya existe un jugador con el nombre: " + playerDTO.getPlayerName());
+        }
         PlayerEntity playerEntity = playerToDomain(playerDTO);
         playerEntity = playerRepository.save(playerEntity);
         return playerToDTO(playerEntity);
@@ -32,6 +36,9 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO updatePlayer(long id, PlayerDTO playerDTO) {
+        if (playerDTO.getPlayerName() != null && playerRepository.existsByPlayerName(playerDTO.getPlayerName())) {
+            throw new PlayerAlreadyExistsException("Ya existe un jugador con el nombre: " + playerDTO.getPlayerName());
+        }
         try {
             Optional<PlayerEntity> updatedPlayer = playerRepository.findById(id);
 

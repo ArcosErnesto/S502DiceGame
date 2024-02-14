@@ -19,14 +19,15 @@ public class PlayerDTO implements Serializable {
     private Date creationDate;
     private Double successRate;
 
-    public PlayerDTO(String playerName, Double successRate) {
-        this.playerName = (playerName != null && !playerName.isEmpty()) ? playerName : "ANONYMOUS";
+    public PlayerDTO(String playerName, Date creationDate, Double successRate) {
+        this.playerName = playerName != null ? playerName : "ANONYMOUS";
+        this.creationDate = creationDate;
         this.successRate = successRate;
     }
 
     public PlayerDTO(long playerId, String playerName, Date creationDate, Double successRate) {
         this.playerId = playerId;
-        this.playerName = (playerName != null && !playerName.isEmpty()) ? playerName : "ANONYMOUS";
+        this.playerName = playerName != null ? playerName : "ANONYMOUS";
         this.creationDate = creationDate;
         this.successRate = successRate;
     }
