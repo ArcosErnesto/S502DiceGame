@@ -124,6 +124,17 @@ public class PlayerServiceImpl implements PlayerService {
         return player;
     }
 
+    public void resetSuccessRate(long id){
+        Optional<PlayerEntity> playerOptional = playerRepository.findById(id);
+        if(playerOptional.isEmpty()){
+            throw new PlayerNotFoundException("Jugador no encontrado con id "+id);
+        } else{
+            PlayerEntity player = playerOptional.get();
+            player.setSuccessRate(null);
+            playerRepository.save(player);
+        }
+    }
+
     public PlayerEntity playerToDomain(PlayerDTO playerDTO) {
         return new PlayerEntity(playerDTO.getPlayerName(), playerDTO.getSuccessRate());
     }

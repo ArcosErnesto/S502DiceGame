@@ -50,5 +50,10 @@ public class Controller {
         return ResponseEntity.ok(playerGames);
     }
 
-
+    @DeleteMapping("/{id}/games")
+    public ResponseEntity<String>deletePlayerGames(@PathVariable long id){
+        String msg = gameService.deletePlayerGames(id);
+        playerService.resetSuccessRate(id);
+        return ResponseEntity.ok(msg);
+    }
 }

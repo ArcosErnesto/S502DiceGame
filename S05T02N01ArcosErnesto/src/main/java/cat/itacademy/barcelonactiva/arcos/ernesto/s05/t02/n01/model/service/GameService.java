@@ -11,7 +11,7 @@ public interface GameService {
     GameDTO addGame(Optional<PlayerEntity> playerEntity);
     List<GameEntity> getAllGames();
     List<GameEntity> getOnePlayerGames(long id);
-    void deleteAllGames(PlayerEntity playerEntity);
+    String deletePlayerGames(long id);
     GameEntity gameDTOToEntity(Optional<PlayerEntity> playerDTO, GameDTO gameDTO);
     GameDTO gameEntityToDTO(GameEntity gameEntity);
 }

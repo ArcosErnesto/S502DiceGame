@@ -58,7 +58,14 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
-    public void deleteAllGames(PlayerEntity playerEntity) {
+    public String deletePlayerGames(long id) {
+        List<GameEntity> playerGames = getOnePlayerGames(id);
+        String playerName = playerGames.get(0).getPlayerEntity().getPlayerName();
+        if (playerGames.isEmpty()) {
+            return "El jugador con ID " + id + " no tiene partidas para borrar.";
+        }
+        playerGames.forEach(gameEntity -> gameRepository.delete(gameEntity));
+        return "Borradas con éxito las partidas del jugador "+playerName;
     }
 
 
