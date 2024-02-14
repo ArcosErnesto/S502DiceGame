@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -37,9 +38,24 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<GameEntity> getAllGames() {
+        List<GameEntity> games = gameRepository.findAll();
+        return games;
+    }
+
+    @Override
+    public List<GameEntity> getOnePlayerGames(long id) {
+        Optional<PlayerEntity> playerOptional = playerRepository.findById(id);
+        if(playerOptional.isPresent()){
+            PlayerEntity player = playerOptional.get();
             List<GameEntity> games = gameRepository.findAll();
-            return games;
-           }
+            List<GameEntity> playerGames = games.stream()
+                    .filter(game -> game.getPlayerEntity().getPlayerId()==player.getPlayerId())
+                    .collect(Collectors.toList());
+            return playerGames;
+        } else{
+            throw new PlayerNotFoundException("Jugador no encontrado con el ID: " + id);
+        }
+    }
 
     @Override
     public void deleteAllGames(PlayerEntity playerEntity) {
