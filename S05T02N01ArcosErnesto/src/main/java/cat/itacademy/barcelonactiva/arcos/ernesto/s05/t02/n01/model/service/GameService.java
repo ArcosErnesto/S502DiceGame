@@ -10,7 +10,8 @@ import java.util.Optional;
 public interface GameService {
     GameDTO addGame(Optional<PlayerEntity> playerEntity);
     List<GameEntity> getAllGames();
-    void deleteAllGames(PlayerEntity playerEntity);
+    List<GameEntity> getOnePlayerGames(long id);
+    String deletePlayerGames(long id);
     GameEntity gameDTOToEntity(Optional<PlayerEntity> playerDTO, GameDTO gameDTO);
     GameDTO gameEntityToDTO(GameEntity gameEntity);
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -37,12 +38,34 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<GameEntity> getAllGames() {
-            List<GameEntity> games = gameRepository.findAll();
-            return games;
-           }
+        List<GameEntity> games = gameRepository.findAll();
+        return games;
+    }
 
     @Override
-    public void deleteAllGames(PlayerEntity playerEntity) {
+    public List<GameEntity> getOnePlayerGames(long id) {
+        Optional<PlayerEntity> playerOptional = playerRepository.findById(id);
+        if(playerOptional.isPresent()){
+            PlayerEntity player = playerOptional.get();
+            List<GameEntity> games = gameRepository.findAll();
+            List<GameEntity> playerGames = games.stream()
+                    .filter(game -> game.getPlayerEntity().getPlayerId()==player.getPlayerId())
+                    .collect(Collectors.toList());
+            return playerGames;
+        } else{
+            throw new PlayerNotFoundException("Jugador no encontrado con el ID: " + id);
+        }
+    }
+
+    @Override
+    public String deletePlayerGames(long id) {
+        List<GameEntity> playerGames = getOnePlayerGames(id);
+        String playerName = playerGames.get(0).getPlayerEntity().getPlayerName();
+        if (playerGames.isEmpty()) {
+            return "El jugador con ID " + id + " no tiene partidas para borrar.";
+        }
+        playerGames.forEach(gameEntity -> gameRepository.delete(gameEntity));
+        return "Borradas con éxito las partidas del jugador "+playerName;
     }
 
 

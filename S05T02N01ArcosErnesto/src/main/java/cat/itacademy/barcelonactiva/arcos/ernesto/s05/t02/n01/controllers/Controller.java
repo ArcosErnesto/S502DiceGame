@@ -1,7 +1,9 @@
 package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.controllers;
 
+import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.GameEntity;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.PlayerDTO;
+import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.GameService;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,8 @@ import java.util.List;
 public class Controller {
     @Autowired
     PlayerService playerService;
+    @Autowired
+    GameService gameService;
 
     @PostMapping("")
     public ResponseEntity<PlayerDTO>addPlayer(@RequestBody PlayerDTO playerDTO){
@@ -35,9 +39,21 @@ public class Controller {
     }
 
     @PostMapping("/{id}/games")
-    public ResponseEntity<GameDTO> play(@PathVariable("id") Integer id){
+    public ResponseEntity<GameDTO> play(@PathVariable("id") long id){
         GameDTO newGame = playerService.playGame(id);
         return new ResponseEntity<>(newGame, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/games")
+    public ResponseEntity<List<GameEntity>> getOnePLayerGames(@PathVariable("id") long id){
+        List<GameEntity> playerGames = gameService.getOnePlayerGames(id);
+        return ResponseEntity.ok(playerGames);
+    }
+
+    @DeleteMapping("/{id}/games")
+    public ResponseEntity<String>deletePlayerGames(@PathVariable long id){
+        String msg = gameService.deletePlayerGames(id);
+        playerService.resetSuccessRate(id);
+        return ResponseEntity.ok(msg);
+    }
 }
