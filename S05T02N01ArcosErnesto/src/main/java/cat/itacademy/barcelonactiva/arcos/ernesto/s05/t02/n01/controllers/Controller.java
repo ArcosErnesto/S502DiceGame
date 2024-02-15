@@ -56,4 +56,22 @@ public class Controller {
         playerService.resetSuccessRate(id);
         return ResponseEntity.ok(msg);
     }
+
+    @GetMapping("/ranking")
+    public ResponseEntity<List<PlayerDTO>> getRanking(){
+        List<PlayerDTO> list = playerService.getRanking();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping("/ranking/winner")
+    public ResponseEntity<PlayerDTO> getWinner(){
+        PlayerDTO winner = playerService.getWinner();
+        return ResponseEntity.ok(winner);
+    }
+
+    @GetMapping("/ranking/loser")
+    public ResponseEntity<PlayerDTO> getLoser(){
+        PlayerDTO loser = playerService.getLoser();
+        return ResponseEntity.ok(loser);
+    }
 }

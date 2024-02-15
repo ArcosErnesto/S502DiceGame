@@ -13,6 +13,7 @@ import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.Play
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,20 +55,6 @@ public class PlayerServiceImpl implements PlayerService {
             e.printStackTrace();
             throw new PlayerUpdateException("Error al actualizar el jugador con ID: " + id, e);
         }
-    }
-
-    @Override
-    public String delete(long id) {
-        PlayerEntity deletedPlayer = playerRepository.findById(id)
-                .orElseThrow(() -> new PlayerNotFoundException("Jugador no encontrado con el ID: " + id));
-        playerRepository.delete(deletedPlayer);
-        return "Jugador eliminado con éxito con el id: " + id;
-    }
-
-
-    @Override
-    public Optional<PlayerDTO> getOne(long id) {
-        return playerRepository.findById(id).map(this::playerToDTO);
     }
 
     @Override
@@ -134,6 +121,30 @@ public class PlayerServiceImpl implements PlayerService {
             playerRepository.save(player);
         }
     }
+
+    @Override
+    public List<PlayerDTO> getRanking() {
+        return playerRepository.findAll().stream()
+                .map(this::playerToDTO)
+                .filter(playerDTO -> playerDTO.getSuccessRate() != null)
+                .sorted(Comparator.comparing(PlayerDTO::getSuccessRate).reversed())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public PlayerDTO getWinner() {
+        List<PlayerDTO> ranking = getRanking();
+        PlayerDTO player = ranking.get(0);
+        return player;
+    }
+
+    @Override
+    public PlayerDTO getLoser() {
+        List<PlayerDTO> ranking = getRanking();
+        PlayerDTO player = ranking.get(ranking.size()-1);
+        return player;
+    }
+
 
     public PlayerEntity playerToDomain(PlayerDTO playerDTO) {
         return new PlayerEntity(playerDTO.getPlayerName(), playerDTO.getSuccessRate());
