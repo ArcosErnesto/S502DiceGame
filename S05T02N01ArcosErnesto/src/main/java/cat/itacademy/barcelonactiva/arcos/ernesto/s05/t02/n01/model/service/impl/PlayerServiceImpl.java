@@ -4,6 +4,7 @@ import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.GameE
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.PlayerEntity;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.PlayerDTO;
+import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.GameNotFoundException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerAlreadyExistsException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerUpdateException;
@@ -124,15 +125,20 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public List<PlayerDTO> getRanking() {
-        return playerRepository.findAll().stream()
+        List<PlayerDTO> ranking = playerRepository.findAll().stream()
                 .map(this::playerToDTO)
                 .filter(playerDTO -> playerDTO.getSuccessRate() != null)
                 .sorted(Comparator.comparing(PlayerDTO::getSuccessRate).reversed())
                 .collect(Collectors.toList());
+        if (ranking.isEmpty()){
+            throw new GameNotFoundException("No hay partidas registradas.");
+        }
+        return ranking;
     }
 
     @Override
     public PlayerDTO getWinner() {
+
         List<PlayerDTO> ranking = getRanking();
         PlayerDTO player = ranking.get(0);
         return player;

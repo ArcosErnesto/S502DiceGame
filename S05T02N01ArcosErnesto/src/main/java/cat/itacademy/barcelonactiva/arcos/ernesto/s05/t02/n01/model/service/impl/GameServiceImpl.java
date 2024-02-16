@@ -3,6 +3,7 @@ package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.imp
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.GameEntity;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.PlayerEntity;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.GameDTO;
+import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.GameNotFoundException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerNotFoundException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.repository.PlayerRepository;
@@ -60,10 +61,10 @@ public class GameServiceImpl implements GameService {
     @Override
     public String deletePlayerGames(long id) {
         List<GameEntity> playerGames = getOnePlayerGames(id);
-        String playerName = playerGames.get(0).getPlayerEntity().getPlayerName();
         if (playerGames.isEmpty()) {
-            return "El jugador con ID " + id + " no tiene partidas para borrar.";
+            throw new GameNotFoundException("No hay partidas registradas en el jugador con ID: " + id);
         }
+        String playerName = playerGames.get(0).getPlayerEntity().getPlayerName();
         playerGames.forEach(gameEntity -> gameRepository.delete(gameEntity));
         return "Borradas con éxito las partidas del jugador "+playerName;
     }
