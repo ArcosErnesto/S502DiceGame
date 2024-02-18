@@ -31,4 +31,16 @@ public class ExceptionController {
         ExceptionDetails details = new ExceptionDetails(exception.getMessage(), HttpStatus.NOT_FOUND.value());
         return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ResponseEntity<ExceptionDetails> UserAlreadyExistException(UserAlreadyExistException exception) {
+        ExceptionDetails details = new ExceptionDetails(exception.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ExceptionDetails> BadCredentialsException(BadCredentialsException exception) {
+        ExceptionDetails details = new ExceptionDetails(exception.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
 }

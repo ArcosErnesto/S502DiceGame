@@ -6,7 +6,6 @@ import lombok.*;
 @Entity
 @Data
 @Table(name = "games")
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -27,12 +26,6 @@ public class GameEntity {
 
     @Column(nullable = false)
     private boolean win;
-
-    public GameEntity(PlayerEntity playerEntity, int dice1, int dice2) {
-        this.playerEntity = playerEntity;
-        this.dice1 = dice1;
-        this.dice2 = dice2;
-    }
 
     public GameEntity(PlayerEntity playerEntity, int dice1, int dice2, boolean win) {
         this.playerEntity = playerEntity;
