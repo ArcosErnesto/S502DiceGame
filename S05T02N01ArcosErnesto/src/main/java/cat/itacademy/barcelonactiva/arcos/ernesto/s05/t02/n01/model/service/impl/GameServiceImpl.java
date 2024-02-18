@@ -39,8 +39,7 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<GameEntity> getAllGames() {
-        List<GameEntity> games = gameRepository.findAll();
-        return games;
+        return gameRepository.findAll();
     }
 
     @Override
@@ -49,10 +48,9 @@ public class GameServiceImpl implements GameService {
         if(playerOptional.isPresent()){
             PlayerEntity player = playerOptional.get();
             List<GameEntity> games = gameRepository.findAll();
-            List<GameEntity> playerGames = games.stream()
+            return games.stream()
                     .filter(game -> game.getPlayerEntity().getPlayerId()==player.getPlayerId())
                     .collect(Collectors.toList());
-            return playerGames;
         } else{
             throw new PlayerNotFoundException("Jugador no encontrado con el ID: " + id);
         }

@@ -71,7 +71,8 @@ public class PlayerServiceImpl implements PlayerService {
         GameDTO gameDTO = gameService.addGame(updatedPlayer);
         try {
             if (updatedPlayer.isPresent()) {
-                PlayerEntity playerDb = updatedPlayer.get();
+                updatedPlayer.get();
+                PlayerEntity playerDb;
                 playerDb = updateSuccessRate(updatedPlayer, gameDTO);
                 playerRepository.save(playerDb);
                 return gameDTO;
@@ -95,28 +96,27 @@ public class PlayerServiceImpl implements PlayerService {
         } else {
             List<GameEntity> games = gameService.getAllGames();
             List<GameEntity> playerGames = games.stream()
-                    .filter(game -> game.getPlayerEntity().getPlayerId()==player.getPlayerId())
-                    .collect(Collectors.toList());
+                    .filter(game -> game.getPlayerEntity().getPlayerId() == player.getPlayerId())
+                    .toList();
             double gamesPlayed = playerGames.size();
-            List<GameEntity> winGames = playerGames.stream().filter(game-> game.isWin()).collect(Collectors.toList());
+            List<GameEntity> winGames = playerGames.stream().filter(GameEntity::isWin).toList();
             double winedGames = winGames.size();
 
-            if (gamesPlayed>0){
-                successRate = winedGames/gamesPlayed*100;
-            } else{
+            if (gamesPlayed > 0) {
+                successRate = winedGames / gamesPlayed * 100;
+            } else {
                 successRate = winGame * 100;
             }
         }
         player.setSuccessRate(successRate);
-
         return player;
     }
 
-    public void resetSuccessRate(long id){
+    public void resetSuccessRate(long id) {
         Optional<PlayerEntity> playerOptional = playerRepository.findById(id);
-        if(playerOptional.isEmpty()){
-            throw new PlayerNotFoundException("Jugador no encontrado con id "+id);
-        } else{
+        if (playerOptional.isEmpty()) {
+            throw new PlayerNotFoundException("Jugador no encontrado con id " + id);
+        } else {
             PlayerEntity player = playerOptional.get();
             player.setSuccessRate(null);
             playerRepository.save(player);
@@ -130,7 +130,7 @@ public class PlayerServiceImpl implements PlayerService {
                 .filter(playerDTO -> playerDTO.getSuccessRate() != null)
                 .sorted(Comparator.comparing(PlayerDTO::getSuccessRate).reversed())
                 .collect(Collectors.toList());
-        if (ranking.isEmpty()){
+        if (ranking.isEmpty()) {
             throw new GameNotFoundException("No hay partidas registradas.");
         }
         return ranking;
@@ -138,17 +138,14 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public PlayerDTO getWinner() {
-
         List<PlayerDTO> ranking = getRanking();
-        PlayerDTO player = ranking.get(0);
-        return player;
+        return ranking.get(0);
     }
 
     @Override
     public PlayerDTO getLoser() {
         List<PlayerDTO> ranking = getRanking();
-        PlayerDTO player = ranking.get(ranking.size()-1);
-        return player;
+        return ranking.get(ranking.size() - 1);
     }
 
 

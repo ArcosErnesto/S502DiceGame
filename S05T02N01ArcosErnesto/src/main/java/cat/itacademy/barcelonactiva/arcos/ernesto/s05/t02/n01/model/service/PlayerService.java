@@ -11,6 +11,6 @@ public interface PlayerService {
     GameDTO playGame(long id);
     void resetSuccessRate(long id);
     List<PlayerDTO> getRanking();
-    public PlayerDTO getWinner();
-    public PlayerDTO getLoser();
+    PlayerDTO getWinner();
+    PlayerDTO getLoser();
 }

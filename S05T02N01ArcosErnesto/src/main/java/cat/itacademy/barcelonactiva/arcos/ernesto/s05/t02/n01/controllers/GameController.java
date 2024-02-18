@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/diceGame/v1/players")
-public class Controller {
+public class GameController {
     @Autowired
     PlayerService playerService;
     @Autowired
