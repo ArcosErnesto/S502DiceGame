@@ -1,9 +1,7 @@
 package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.impl;
 
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.JwtService;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -60,8 +58,9 @@ public class JwtServiceImpl implements JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token)
-                .getBody();
+            return Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token)
+                    .getBody();
+
     }
 
     private Key getSigningKey() {

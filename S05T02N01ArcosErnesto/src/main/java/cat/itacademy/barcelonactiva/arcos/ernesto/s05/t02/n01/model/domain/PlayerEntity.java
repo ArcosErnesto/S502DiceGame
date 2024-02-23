@@ -1,10 +1,7 @@
 package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -14,6 +11,8 @@ import java.util.Date;
 @Data
 @Table(name = "players", uniqueConstraints = @UniqueConstraint(columnNames = "playerName"))
 @Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class PlayerEntity implements Serializable {

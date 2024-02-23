@@ -43,4 +43,5 @@ public class ExceptionController {
         ExceptionDetails details = new ExceptionDetails(exception.getMessage(), HttpStatus.BAD_REQUEST.value());
         return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
     }
+
 }

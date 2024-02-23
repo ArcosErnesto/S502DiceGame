@@ -3,7 +3,7 @@ package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.utils;
 import java.util.Random;
 
 public class DiceRoll {
-    private Random random = new Random();
+    private final Random random = new Random();
     private int dice1;
     private int dice2;
 
