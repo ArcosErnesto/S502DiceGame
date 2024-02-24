@@ -11,6 +11,7 @@ import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.P
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.GameService;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.PlayerService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
 public class PlayerServiceImpl implements PlayerService {
     @Autowired
     private PlayerRepository playerRepository;

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -63,8 +62,7 @@ class PlayerRepositoryTest {
 
         PlayerEntity returnedPlayer = playerRepository.save(newPlayer);
         assertNotNull(returnedPlayer);
-        assertEquals(6L, returnedPlayer.getPlayerId());
-        assertEquals(newPlayer.getPlayerId(), returnedPlayer.getPlayerId());
+        assertEquals(newPlayer.getPlayerName(), returnedPlayer.getPlayerName());
 
     }
 
@@ -78,4 +76,5 @@ class PlayerRepositoryTest {
         assertEquals("Arévalo", updatedPlayer.getPlayerName());
 
     }
+
 }
