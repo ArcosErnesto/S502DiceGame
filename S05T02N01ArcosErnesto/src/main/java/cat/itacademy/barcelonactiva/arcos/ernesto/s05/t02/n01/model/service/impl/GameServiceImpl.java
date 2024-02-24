@@ -9,15 +9,12 @@ import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.repository.G
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.repository.PlayerRepository;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.GameService;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.utils.DiceRoll;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-@AllArgsConstructor
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -28,7 +25,7 @@ public class GameServiceImpl implements GameService {
     @Autowired
     private DiceRoll diceRoll;
 
-    private GameDTO newGame() {
+    public GameDTO newGame() {
         diceRoll = new DiceRoll();
         diceRoll.roll();
         return new GameDTO(diceRoll.getDice1(), diceRoll.getDice2());

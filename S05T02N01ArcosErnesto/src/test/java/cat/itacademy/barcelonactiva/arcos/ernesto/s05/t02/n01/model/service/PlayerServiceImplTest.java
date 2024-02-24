@@ -1,4 +1,4 @@
-package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.impl;
+package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service;
 
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.GameEntity;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.PlayerEntity;
@@ -6,12 +6,11 @@ import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.PlayerDTO;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerAlreadyExistsException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerNotFoundException;
-import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.exceptions.PlayerUpdateException;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.repository.GameRepository;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.repository.PlayerRepository;
-import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.GameService;
+import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.impl.GameServiceImpl;
+import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.impl.PlayerServiceImpl;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.utils.DiceRoll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +19,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 
 import java.util.Arrays;
 import java.util.Date;
