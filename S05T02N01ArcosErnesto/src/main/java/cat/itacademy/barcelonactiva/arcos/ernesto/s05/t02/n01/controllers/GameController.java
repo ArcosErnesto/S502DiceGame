@@ -6,6 +6,7 @@ import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.PlayerDT
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.GameService;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service.PlayerService;
 import io.swagger.v3.oas.annotations.Operation;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/diceGame/v1/players")
 public class GameController {
     @Autowired
     PlayerService playerService;
     @Autowired
     GameService gameService;
+
 
     @Operation(summary = "Create new player")
     @PostMapping("")
@@ -49,7 +52,7 @@ public class GameController {
         return new ResponseEntity<>(newGame, HttpStatus.OK);
     }
 
-    @Operation(summary = "Get player by ID")
+    @Operation(summary = "Get player games by ID")
     @GetMapping("/{id}/games")
     public ResponseEntity<List<GameEntity>> getOnePLayerGames(@PathVariable("id") long id){
         List<GameEntity> playerGames = gameService.getOnePlayerGames(id);

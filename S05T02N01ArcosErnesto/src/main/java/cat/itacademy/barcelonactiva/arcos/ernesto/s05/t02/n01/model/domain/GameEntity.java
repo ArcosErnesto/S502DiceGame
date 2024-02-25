@@ -3,9 +3,11 @@ package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain;
 import jakarta.persistence.*;
 import lombok.*;
 
+@Builder
 @Entity
 @Data
 @Table(name = "games")
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter

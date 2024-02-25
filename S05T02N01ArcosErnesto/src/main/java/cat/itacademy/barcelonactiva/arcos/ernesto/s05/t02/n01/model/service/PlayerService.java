@@ -1,5 +1,6 @@
 package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.service;
 
+import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.PlayerEntity;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.GameDTO;
 import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.dto.PlayerDTO;
 import java.util.List;
@@ -13,4 +14,6 @@ public interface PlayerService {
     List<PlayerDTO> getRanking();
     PlayerDTO getWinner();
     PlayerDTO getLoser();
+    PlayerEntity playerToDomain(PlayerDTO playerDTO);
+    PlayerDTO playerToDTO(PlayerEntity player);
 }

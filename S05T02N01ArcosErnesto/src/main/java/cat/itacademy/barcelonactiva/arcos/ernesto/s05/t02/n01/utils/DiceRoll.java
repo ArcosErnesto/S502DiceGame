@@ -1,9 +1,15 @@
 package cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.utils;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
+
 import java.util.Random;
 
+
+@Component
 public class DiceRoll {
-    private Random random = new Random();
+    private final Random random = new Random();
     private int dice1;
     private int dice2;
 

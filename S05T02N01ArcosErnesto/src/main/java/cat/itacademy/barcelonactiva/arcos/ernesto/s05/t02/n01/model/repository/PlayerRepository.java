@@ -4,5 +4,5 @@ import cat.itacademy.barcelonactiva.arcos.ernesto.s05.t02.n01.model.domain.Playe
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PlayerRepository extends JpaRepository<PlayerEntity,Long> {
-    boolean existsByPlayerName(String playerName);
+        boolean existsByPlayerName(String playerName);
 }
