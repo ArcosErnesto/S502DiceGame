@@ -84,7 +84,7 @@ class GameControllerUnitTest {
     }
 
     @Test
-    void should_return_superHero_list() throws Exception {
+    void should_return_players_list() throws Exception {
         when(playerService.findAll()).thenReturn(Arrays.asList(playerDTO1, playerDTO2));
         mockMvc.perform(get("/diceGame/v1/players"))
                 .andDo(print())
