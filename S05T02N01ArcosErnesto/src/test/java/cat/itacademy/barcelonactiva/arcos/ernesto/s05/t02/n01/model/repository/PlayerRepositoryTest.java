@@ -63,7 +63,6 @@ class PlayerRepositoryTest {
         PlayerEntity returnedPlayer = playerRepository.save(newPlayer);
         assertNotNull(returnedPlayer);
         assertEquals(newPlayer.getPlayerName(), returnedPlayer.getPlayerName());
-
     }
 
     @Test
